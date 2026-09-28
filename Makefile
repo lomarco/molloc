@@ -1,4 +1,5 @@
-TARGET = molloc.a
+TARGET = molloc
+LIBTARGET = libmolloc.a
 CC = clang
 AR = ar
 
@@ -11,10 +12,10 @@ all: build
 	$(CC) -c $< -o $@
 
 build: $(OBJ)
-	$(AR) rcs $(TARGET) $^
+	$(AR) rcs $(LIBTARGET) $^
 
 clean:
-	rm -f $(OBJ) $(TARGET)
+	rm -f $(OBJ) $(LIBTARGET)
 
 rebuild: clean all
 
