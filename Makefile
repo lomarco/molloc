@@ -1,20 +1,34 @@
 TARGET = molloc
+LIBTARGET = libmolloc.a
 CC = clang
+AR = ar
 
 SRC = $(wildcard *.c)
-OBJ = $(patsubst *.c,%.o,$(SRC))
+OBJ = $(patsubst %.c,%.o,$(SRC))
+
+TESTDIR = tests
+TEST_MAIN = $(TESTDIR)/test.c
+TEST_TARGET = test
 
 all: build
 
-%.o: $(SRC)
-	$(CC) -c $(SRC) -o $@
+%.o: %.c
+	$(CC) -c $< -o $@
 
 build: $(OBJ)
-	$(CC) $< -o $(TARGET)
+	$(AR) rcs $(LIBTARGET) $^
 
-clear:
-	rm *.o $(TARGET)
+clean: clean-src clean-tests
 
-rebuild: all clear
+clean-src:
+	rm -f $(OBJ) $(LIBTARGET)
 
-.PHONY: all build clear rebuild
+clean-tests:
+	rm -f $(TEST_TARGET)
+
+rebuild: clean all
+
+tests: all
+	$(CC) $(TEST_MAIN) -o $(TEST_TARGET) -L. -l$(TARGET) -I.
+
+.PHONY: all build clean rebuild tests clean-tests clean-src
