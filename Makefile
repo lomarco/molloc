@@ -1,5 +1,6 @@
-TARGET = molloc
+TARGET = molloc.a
 CC = clang
+AR = ar
 
 SRC = $(wildcard *.c)
 OBJ = $(patsubst *.c,%.o,$(SRC))
@@ -10,7 +11,7 @@ all: build
 	$(CC) -c $(SRC) -o $@
 
 build: $(OBJ)
-	$(CC) $< -o $(TARGET)
+	$(AR) rcs $(TARGET) $^
 
 clear:
 	rm *.o $(TARGET)
