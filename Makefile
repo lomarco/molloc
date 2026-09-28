@@ -21,9 +21,12 @@ build: $(OBJ)
 clean:
 	rm -f $(OBJ) $(LIBTARGET)
 
+clean-tests:
+	rm -f $(TEST_TARGET)
+
 rebuild: clean all
 
 tests: all
 	$(CC) $(TEST_MAIN) -o $(TEST_TARGET) -L. -l$(TARGET) -I.
 
-.PHONY: all build clean rebuild tests
+.PHONY: all build clean rebuild tests clean-tests
