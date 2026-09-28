@@ -3,19 +3,19 @@ CC = clang
 AR = ar
 
 SRC = $(wildcard *.c)
-OBJ = $(patsubst *.c,%.o,$(SRC))
+OBJ = $(patsubst %.c,%.o,$(SRC))
 
 all: build
 
-%.o: $(SRC)
-	$(CC) -c $(SRC) -o $@
+%.o: %.c
+	$(CC) -c $< -o $@
 
 build: $(OBJ)
 	$(AR) rcs $(TARGET) $^
 
-clear:
-	rm *.o $(TARGET)
+clean:
+	rm -f $(OBJ) $(TARGET)
 
-rebuild: all clear
+rebuild: clean all
 
-.PHONY: all build clear rebuild
+.PHONY: all build clean rebuild
