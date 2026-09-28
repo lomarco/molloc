@@ -15,4 +15,6 @@ build: $(OBJ)
 clear:
 	rm *.o $(TARGET)
 
-.PHONY: all build clear
+rebuild: all clear
+
+.PHONY: all build clear rebuild
