@@ -6,6 +6,10 @@ AR = ar
 SRC = $(wildcard *.c)
 OBJ = $(patsubst %.c,%.o,$(SRC))
 
+TESTDIR = tests
+TEST_MAIN = $(TESTDIR)/test.c
+TEST_TARGET = test
+
 all: build
 
 %.o: %.c
@@ -19,4 +23,7 @@ clean:
 
 rebuild: clean all
 
-.PHONY: all build clean rebuild
+tests: all
+	$(CC) $(TEST_MAIN) -o $(TEST_TARGET) -L. -l$(TARGET) -I.
+
+.PHONY: all build clean rebuild tests
