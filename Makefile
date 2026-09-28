@@ -18,7 +18,9 @@ all: build
 build: $(OBJ)
 	$(AR) rcs $(LIBTARGET) $^
 
-clean:
+clean: clean-src clean-tests
+
+clean-src:
 	rm -f $(OBJ) $(LIBTARGET)
 
 clean-tests:
@@ -29,4 +31,4 @@ rebuild: clean all
 tests: all
 	$(CC) $(TEST_MAIN) -o $(TEST_TARGET) -L. -l$(TARGET) -I.
 
-.PHONY: all build clean rebuild tests clean-tests
+.PHONY: all build clean rebuild tests clean-tests clean-src
